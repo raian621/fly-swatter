@@ -1,6 +1,6 @@
 name: CI Routine
 
-runs-on:
+on:
   push:
     branches: [ "main" ]
   pull_request:
@@ -8,6 +8,7 @@ runs-on:
 
 jobs:
   test:
+    runs-on: ubuntu-latest
     
     strategy:
       matrix:
