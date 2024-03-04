@@ -1,0 +1,24 @@
+.error-widget {
+  background-color: #ffd1d1;
+  display: flex;
+  word-wrap: break-word;
+  word-break: break-all;
+  padding: 10px;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;;
+  border: solid #640404 2px;
+  color: #640404;
+}
+
+.error-widget button {
+  background-color: transparent;
+  border-style: none;
+  border-radius: 20px;
+}
+
+.error-widget button:hover {
+  background-color: #0111;
+  border-style: none;
+}
