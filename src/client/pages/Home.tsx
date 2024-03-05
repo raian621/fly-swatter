@@ -4,8 +4,7 @@ import { SessionInfoContext } from "../context/SessionInfoContext"
 import LayoutWithHeader from "../LayoutWithHeader";
 
 export default function Home() {
-  const sessionInfoContext = useContext(SessionInfoContext)
-  const sessionInfo = sessionInfoContext ? sessionInfoContext[0] : null;
+  const [ sessionInfo ] = useContext(SessionInfoContext);
   const navigate = useNavigate()
 
   useEffect(() => {

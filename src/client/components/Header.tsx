@@ -8,7 +8,7 @@ export function Header() {
   return (
     <nav>
       <li>
-        <p>sadfasfd</p>
+        <h1>Fly Swatter</h1>
         { sessionInfo?.username && <UserDropdown username={sessionInfo.username}/>}
       </li>
     </nav>

@@ -7,6 +7,7 @@
     "dev": "nodemon -w src/server -x tsx src/server/main.ts",
     "start": "NODE_ENV=production tsx src/server/main.ts",
     "build": "vite build",
+    "migrate": "drizzle-kit generate:pg && tsx src/server/migrate.ts",
     "test": "vitest"
   },
   "dependencies": {
