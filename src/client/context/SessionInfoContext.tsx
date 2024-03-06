@@ -42,7 +42,9 @@ export function SessionInfoProvider({
   const [sessionInfo, setSessionInfo] = useState<SessionInfo | null>(value);
 
   useEffect(() => {
-    retrieveSessionInfo(setSessionInfo);
+    if (!value) {
+      retrieveSessionInfo(setSessionInfo);
+    }
   }, [setSessionInfo]);
 
   return (

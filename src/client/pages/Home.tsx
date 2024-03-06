@@ -1,24 +1,24 @@
-import { useContext, useEffect } from "react"
-import { useNavigate } from "react-router"
-import { SessionInfoContext } from "../context/SessionInfoContext"
+import useTheme from "@mui/material/styles/useTheme";
 import LayoutWithHeader from "../LayoutWithHeader";
+import useAuthentication from "../hooks/useAuth";
+import Container from "@mui/material/Container";
+import Box from "@mui/material/Box"
+
 
 export default function Home() {
-  const [ sessionInfo ] = useContext(SessionInfoContext);
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    if (!sessionInfo) {
-      navigate("/login");
-    }
-  }, [sessionInfo]);
+  useAuthentication();
+  const { palette: { background }} = useTheme()
 
   return (
     <>
       <LayoutWithHeader>
-        <section>
-          <h1>Home</h1>
-        </section>
+        <Box sx={{
+          bgcolor: background.paper,
+          minHeight: "100vh",
+          m: 0,
+          width: "100vw"
+        }}>
+        </Box>
       </LayoutWithHeader>
     </>
   );

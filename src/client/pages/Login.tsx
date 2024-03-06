@@ -1,15 +1,21 @@
 import { SyntheticEvent, useContext, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import ErrorWidget from "../components/ErrorWidget";
+import { useNavigate } from "react-router-dom";
 import { SessionInfoContext } from "../context/SessionInfoContext";
 import { fetchSessionInfo, getSessionInfo } from "../utils/sessionInfo";
+import Button from "@mui/material/Button";
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
+import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
+import { TextField, useTheme } from "@mui/material";
 
 export default function Login() {
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
   const [credsValid, setCredsValid] = useState(true);
-  const [_, setSessionInfo] = useContext(SessionInfoContext)
+  const [_, setSessionInfo] = useContext(SessionInfoContext);
+  const { palette: { background }} = useTheme()
 
   const handleSubmit = () => {
     return async (e: SyntheticEvent<HTMLFormElement>) => {
@@ -33,8 +39,8 @@ export default function Login() {
         if (res.ok) {
           const sessionInfoIngress = await fetchSessionInfo();
           if (sessionInfoIngress) {
-            setSessionInfo(getSessionInfo(sessionInfoIngress))
-            console.log("navigating to home")
+            setSessionInfo(getSessionInfo(sessionInfoIngress));
+            console.log("navigating to home");
             navigate("/");
           }
         } else {
@@ -48,23 +54,49 @@ export default function Login() {
   };
 
   return (
-    <div className="flex-col-padding">
-      <ErrorWidget
-        message="Incorrect username or password"
-        hidden={credsValid}
-        setHidden={setCredsValid}
-      />
-      <form onSubmit={handleSubmit()}>
-        <h2>Login</h2>
-        <label htmlFor="username">Username</label>
-        <input name="username" type="text" ref={usernameRef} />
-        <label htmlFor="password">Password</label>
-        <input name="password" type="password" ref={passwordRef} />
-        <input type="submit" value="Log in" />
-        <span>
-          Don't have an account? <Link to="/signup">Sign up</Link>
-        </span>
-      </form>
-    </div>
+    <Box
+      sx={{
+        bgcolor: background.paper,
+        height: "100vh",
+        display: "flex",
+        alignItems: "center",
+      }}
+    >
+      <Container maxWidth="sm">
+        <Paper
+          component="form"
+          elevation={4}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 4,
+            p: 4,
+          }}
+          onSubmit={handleSubmit()}
+        >
+          <Typography typography="h3">Log in to FlySwatter</Typography>
+          <TextField
+            id="username"
+            variant="standard"
+            label="Username"
+            inputRef={usernameRef}
+          ></TextField>
+          <TextField
+            id="password"
+            type="password"
+            variant="standard"
+            label="Password"
+            inputRef={passwordRef}
+          ></TextField>
+          <Button
+            aria-describedby="submit button for login form"
+            type="submit"
+            variant="contained"
+          >
+            Log in
+          </Button>
+        </Paper>
+      </Container>
+    </Box>
   );
 }

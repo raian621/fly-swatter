@@ -18,12 +18,13 @@ apiRouter.post("/login", async (req, res) => {
 
   const userId = await getUserId(username) as string
   const newSession = await createSession(userId)
-  const { id: sessionId } = newSession;
+  const { id: sessionId, expires } = newSession;
 
   res
     .cookie("sessionId", sessionId, {
       sameSite: true,
-      httpOnly: true
+      httpOnly: true,
+      expires
     })
     .status(200)
     .end("ok");
